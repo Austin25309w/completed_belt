@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>dashboard</title>
+	<style type="text/css">
+	*{
+		margin: 30px;
+	}
+	h4{
+		color: green;
+	}
+	h4, h1 {
+		font-family: fantasy;
+	}
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	td, th {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
+</style>
+</head>
+<body>
+	<form action="/dashboard" method="post">
+		{% csrf_token %}
+		<h4>You've been successfully registered</h4>
+		<h1>Hello, {{ request.session.name }}</h1>
+	</form>
+		<a href="/logout"><button>Logout</button></a>
+
+	<p>Your Wish List</p>
+	<table>
+		<tr>
+			<th>Item </th>
+			<th>Added by</th>
+			<th>Date Added</th>
+			<th>Action</th>
+		</tr>
+		{% for x in my_items %}
+			<tr>
+				<td><a href="/show/{{ x.id }}">{{ x.name }}</a></td>
+				<td>{{ x.created_by.name }}</td>
+				<td>{{ x.created_at }}</td>
+				<!-- <td><a href="/show/{{ x.id }}">Show</a> -->
+				<td><a href="/removeItem/{{ x.id }}">Remove from my wishlist</a></td>
+			</tr>
+		{% endfor %}
+
+		{% for x in self_item %}
+			<tr>
+				<td><a href="/show/{{ x.id }}">{{ x.name }}</a></td>
+				<td>{{ x.created_by.name }}</td>
+				<td>{{ x.created_at }}</td>
+				<!-- <td><a href="/show/{{ x.id }}">Show</a> -->
+				<td><a href="/delete/{{ x.id }}">Delete</a></td>
+			</tr>
+		{% endfor %}
+		
+	</table>
+
+	<p>Other Users' Wish List</p>
+	<table>
+		<tr>
+			<th>Item</th>
+			<th>Added by</th>
+			<th>Date Added</th>
+			<th>Action</th>
+		</tr>
+		<tr>
+		{% for x in items%}
+			<tr>
+				<td><a href="/show/{{ x.id }}">{{ x.name }}</a></td>
+				<td>{{ x.created_by.name }}</td>
+				<td>{{ x.created_at }}</td>
+				<!-- <td><a href="/show/{{ x.id }}">Show</a> -->
+				<td><a href="/addItem/{{ x.id }}">Add to my wishlist</a></td>
+			</tr>
+		{% endfor %}
+	 <!-- take the whole wish list of  -->
+		</tr>
+	</table>
+	<a href="/process">Add Item</a>
+</body>
+</html>

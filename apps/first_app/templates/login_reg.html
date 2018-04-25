@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title >login and registration</title>
+</head>
+<style type="text/css">
+* {
+	margin: 10px;
+}
+h1, h2, h5{
+	font-family: sans-serif;
+}
+.box  {
+	border: 1px solid black ;
+}
+.pw {
+	color: #48BDEB;
+}
+</style>
+<body>
+
+	<h1>Login and Registration</h1>
+	{% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li style="color: red;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+	<div class="box" style="display: inline-block;">
+
+		<!-- <p style="color: red; font-size: 50px">{{ message }}</p> -->
+
+		
+
+		<h2>Register here!</h2>
+		
+		
+		<form action="/validate", method="post">
+			{% csrf_token %}
+
+			<h5>Name:</h5>
+			<input type="text" name="name" value="{{request.session.name}}">
+
+			<h5>Username:</h5>
+			<input type="text" name="reg_username" value ="{{request.session.username}}">
+			<h5>Password:</h5>
+			<input type="password" name="password">
+			<p class="pw">*Password should be at least 8 chacaters</p>
+			<h5>Confirm password:</h5>
+			<input type="password" name="con_pass">
+			<p>Date Hired:</p>
+			<input type="date" name="date">
+
+
+			<button style="background-color: #21AAE1; color: white;">Register!</button>
+		</form>
+	</div>
+
+	<div class= "box" style="display: inline-block; vertical-align: top; margin-left: 20px">
+		
+		<form action="/login", method="post">
+			{% csrf_token %}		
+			<h2>Login here!</h2>
+			<h5>Username:</h5>
+			<input type="text" name="log_username">
+			<h5>Password:</h5>
+			<input type="password" name="log_password">
+			<button style="background-color: #21AAE1; color: white;">Log in</button>
+
+		</form>
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>show</title>
+	<style type="text/css">
+	*{
+		margin: 30px;
+	}
+	h4{
+		color: green;
+	}
+	h4, h1 {
+		font-family: fantasy;
+	}
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	td, th {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
+</style>
+</head>
+<body>
+	<a href="/dashboard">Home</a>
+	<a href="/">Logout</a>
+	
+	<h1>{{name}}</h1>
+	<ul>
+	{% for i in username %}
+		<li>{{ i.username }}</li>
+	{% endfor %}
+	</ul>
+</body>
+</html>
